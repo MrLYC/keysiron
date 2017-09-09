@@ -1,0 +1,4 @@
+package: github.com/MrLYC/keysiron.git
+import:
+- package: github.com/go-martini/martini
+  version: ~1.0.0
