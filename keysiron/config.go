@@ -10,13 +10,18 @@ type KeysironConfig struct {
 	Server struct {
 		Port int `yaml:"port"`
 	}
-	MySQL struct {
+	Database struct {
+		Type     string `yaml:"type"`
 		Host     string `yaml:"host"`
 		Port     int    `yaml:"port"`
 		User     string `yaml:"user"`
 		Password string `yaml:"password"`
-		Database string `yaml:"database"`
+		Name     string `yaml:"name"`
 	}
+}
+
+// Init the config
+func (c *KeysironConfig) Init() {
 }
 
 // Parse from path
