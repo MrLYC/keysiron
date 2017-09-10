@@ -1,4 +1,7 @@
 package: https://github.com/MrLYC/keysiron/keysiron
+ignore:
+- keysiron/config
+- keysiron/views
 import:
 - package: github.com/go-martini/martini
   version: ~1.0.0
