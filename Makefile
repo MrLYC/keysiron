@@ -33,6 +33,10 @@ install:
 build: bin
 	go build -o ${ROOTDIR}/bin/keysiron ${SRCDIR}/main.go
 
+.PHONY: run
+run:
+	go run ${SRCDIR}/main.go
+
 .PHONY: clean
 clean:
 	rm -rf bin || true
