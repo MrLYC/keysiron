@@ -31,7 +31,7 @@ install:
 
 .PHONY: build
 build: bin
-	go build -o ${ROOTDIR}/bin/keysiron ${SRCDIR}/main.go
+	go build -o ${ROOTDIR}/bin/keysiron keysiron
 
 .PHONY: run
 run:
@@ -40,4 +40,3 @@ run:
 .PHONY: clean
 clean:
 	rm -rf bin || true
-

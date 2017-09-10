@@ -1,19 +1,21 @@
 package main
 
-import "flag"
-import "os"
-import "strconv"
+import (
+	"flag"
+	"github.com/go-martini/martini"
+	"keysiron/views"
+	"os"
+	"strconv"
+)
 
-import "github.com/go-martini/martini"
-
-import "keysiron/views"
-
-type argument struct {
-	Port int
+// Argument : the type of ArgumentVar
+type Argument struct {
+	ConfigFile string
 }
 
-func (a *argument) Parse() {
-	flag.IntVar(&a.Port, "p", 8000, "Port to run on")
+// Parse configutation from file
+func (a *Argument) Parse() {
+	flag.StringVar(&a.ConfigFile, "c", "keysiron.yaml", "YAML configutation")
 	flag.Parse()
 }
 
@@ -21,10 +23,18 @@ func routesConfig(m *martini.ClassicMartini) {
 	m.Get("/", views.Index)
 }
 
+// ArgumentVar : command start argument
+var ArgumentVar Argument
+
+// KeysironConfigVar : keysiron configutation
+var KeysironConfigVar KeysironConfig
+
 func main() {
-	a := new(argument)
-	a.Parse()
-	os.Setenv("PORT", strconv.Itoa(a.Port))
+	ArgumentVar.Parse()
+	KeysironConfigVar.Parse(ArgumentVar.ConfigFile)
+
+	os.Setenv("PORT", strconv.Itoa(KeysironConfigVar.Server.Port))
+
 	m := martini.Classic()
 	routesConfig(m)
 	m.Run()
