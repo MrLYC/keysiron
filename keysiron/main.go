@@ -11,8 +11,9 @@ func main() {
 	config.KeysironConfigVar.Parse(config.ArgumentVar.ConfigFile)
 	type commandFunc func()
 	commands := map[string]commandFunc{
-		"run":   runServer,
-		"usage": flag.Usage,
+		"run":     runServer,
+		"migrate": migrate,
+		"usage":   flag.Usage,
 	}
 	function, ok := commands[config.ArgumentVar.Command]
 	if !ok {
