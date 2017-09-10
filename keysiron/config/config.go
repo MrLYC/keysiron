@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"gopkg.in/yaml.v2"
@@ -35,3 +35,6 @@ func (c *KeysironConfig) Parse(path string) {
 		panic(err)
 	}
 }
+
+// KeysironConfigVar : keysiron configutation
+var KeysironConfigVar KeysironConfig

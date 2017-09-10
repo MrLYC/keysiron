@@ -5,6 +5,8 @@ ROOTDIR := $(shell pwd)
 SRCDIR := src/keysiron
 GLIDE := cd ${SRCDIR} && glide
 
+TARGET := bin/keysiron
+
 goenv:
 	goenv init keysiron
 
@@ -18,11 +20,17 @@ ${SRCDIR}:
 ${SRCDIR}/glide.yaml: ${SRCDIR}
 	${GLIDE} init
 
+src/%: keysiron/vendor/%
+	@ln -s "$<" "$@" >/dev/null 2>&1 || true
+
+.PHONY: vendor
+vendor:$(addprefix src/, $(notdir $(wildcard ${SRCDIR}/vendor/*)))
+
 .PHONY: init
 init: ${SRCDIR}
 
 .PHONY: update
-update:
+update: vendor
 	${GLIDE} update
 
 .PHONY: install
@@ -31,7 +39,7 @@ install:
 
 .PHONY: build
 build: bin
-	go build -o ${ROOTDIR}/bin/keysiron keysiron
+	go build -o ${TARGET} keysiron
 
 .PHONY: run
 run:
