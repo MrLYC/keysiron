@@ -21,5 +21,9 @@ func migrate() {
 	if err != nil {
 		panic(err)
 	}
-	connection.CreateTable(&storage.User{})
+	connection.AutoMigrate(
+		&storage.User{},
+		&storage.Group{},
+		&storage.UserGroup{},
+	)
 }
